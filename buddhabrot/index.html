@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<script type="text/javascript" src="brot.js"></script>
+
+<form style="float: right">
+<input type="checkbox" id="reload">reload<br>
+</form>
+
+<script>
+	"use strict"
+
+	// Periodically check reload checkbox state
+	setInterval(function () {
+
+		if (document.getElementById("reload").checked === true)
+			window.location.reload()
+	}, 5000)
+</script>

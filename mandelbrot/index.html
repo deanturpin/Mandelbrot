@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<script type="text/javascript" src="timestables.js"></script>
+
+<form style="float: right">
+<input type="checkbox" id="reload">reload<br>
+</form>
+
+<script>
+	"use strict"
+
+	// Create a canvas element
+	var canvas = document.createElement("canvas")
+	var body = document.getElementsByTagName("body")[0]
+
+	// Add it to the DOM
+	body.appendChild(canvas)
+
+	// Define canvas
+	var context = canvas.getContext("2d")
+
+	// Set canvas to window size (less a bit for the reload checkbox)
+	context.canvas.width = window.innerWidth
+	context.canvas.height = window.innerHeight - 50
+
+	// Radians in a circle
+	const radians = 2 * Math.PI
+
+	// Draw a line on the canvas
+	function line(x1, y1, x2, y2) {
+
+		// Draw the line
+		context.beginPath()
+		context.moveTo(x1, y1)
+		context.lineTo(x2, y2)
+		context.stroke()
+	}
+
+	// Clear the canvas
+	function clear() {
+		context.clearRect(0, 0, canvas.width, canvas.height)
+	}
+
+	// Start animation at the centre of the canvas
+	draw(canvas.width / 2, canvas.height / 2)
+
+	// Periodically check reload checkbox state
+	setInterval(function () {
+
+		if (document.getElementById("reload").checked === true)
+			window.location.reload()
+	}, 2000)
+</script>
