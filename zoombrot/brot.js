@@ -32,12 +32,6 @@ onload = function() {
 		for (var y = 0; y < height; ++y)
 			bitmap[x][y] = 0
 
-	// 'Brot limits
-	// var limit = {
-		// x: {min: -2, max: 2},
-		// y: {min: -1, max: 1},
-	// }
-
 	// Draw the 'brot
 	function brot() {
 
@@ -72,7 +66,7 @@ onload = function() {
 		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y)
 				bitmap[x][y] = member(
-					(x - 1.72 * zoom - width / 2) / zoom,
+					(x - 1.99 * zoom) / zoom,
 					(y - height / 2) / zoom,
 					iterations)
 
@@ -89,20 +83,13 @@ onload = function() {
 	var count = 0
 	const timer = setInterval(function() {
 
-
-		if (++count > 250) {
-
+		if (++count > 350)
 			clearInterval(timer)
-
-			for (var i = 10; i < 20; ++i)
-				console.log(bitmap[10][100], zoom,
-					(bitmap[i][10] - 1.72 * zoom - width / 2) / zoom)
-		}
 
 		console.log(count)
 
 		brot()
 		zoom *= 1.05
 
-	}, 10)
+	}, 1)
 }
