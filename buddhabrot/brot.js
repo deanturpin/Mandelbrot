@@ -13,11 +13,11 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = window.innerWidth
-	const height = window.innerHeight
+	const width = 400 // window.innerWidth
+	const height = 300 // window.innerHeight
 
-	var zoom = 100
-	const iterations = 25
+	var zoom = 100000
+	const iterations = 20
 	canvas.width = width
 	canvas.height = height
 
@@ -72,14 +72,14 @@ onload = function() {
 		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y)
 				bitmap[x][y] = member(
-					(x - 1.72 * zoom - width / 2) / zoom,
-					(y - height / 2) / zoom,
+					x/zoom - 1.9,
+					(y - height/2) / zoom,
 					iterations)
 
 		// Display 'brot
 		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y)
-				if (bitmap[x][y] === 0) {
+				if (bitmap[x][y] > 0) {
 
 					context.fillStyle = "#f00"
 					context.fillRect(x, y, 1, 1)
@@ -87,22 +87,18 @@ onload = function() {
 	}
 
 	var count = 0
-	const timer = setInterval(function() {
+	function render() {
 
+		if (count < 1) {
 
-		if (++count > 250) {
+			requestAnimationFrame(render)
 
-			clearInterval(timer)
-
-			for (var i = 10; i < 20; ++i)
-				console.log(bitmap[10][100], zoom,
-					(bitmap[i][10] - 1.72 * zoom - width / 2) / zoom)
+			brot()
+			zoom *= 1.05
+			++count
 		}
+	}
 
-		console.log(count)
-
-		brot()
-		zoom *= 1.05
-
-	}, 10)
+	// Start animation
+	render()
 }
