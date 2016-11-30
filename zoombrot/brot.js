@@ -66,7 +66,7 @@ onload = function() {
 		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y)
 				bitmap[x][y] = member(
-					(x - 1.99 * zoom) / zoom,
+					(x - 1.89 * zoom) / zoom,
 					(y - height / 2) / zoom,
 					iterations)
 
