@@ -13,8 +13,8 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = window.innerWidth
-	const height = window.innerHeight
+	const width = 400 // window.innerWidth
+	const height = 400 // window.innerHeight
 	canvas.width = width
 	canvas.height = height
 
@@ -35,34 +35,17 @@ onload = function() {
 		}
 	}
 
-	canvas.addEventListener("mousemove", function(evt) {
-
-		const p = {
-			x: 10,
-			y: 10,
-			width: 100,
-			height: 40
-		}
+	canvas.addEventListener("click", function(evt) {
 
 		var mousePos = getMousePos(canvas, evt);
-
-		context.fillStyle = "white"
-		context.clearRect(p.x, p.y, p.width, p.height)
-
-		context.fillStyle = "black"
-		context.fillText(mousePos.x + ", " + mousePos.y, p.x + 20, p.y + 20)
-	}, false);
-
-	canvas.addEventListener("dblclick", function(evt) {
-
-		var mousePos = getMousePos(canvas, evt);
-		console.log("click", mousePos.x, mousePos.y)
 
 		// Update view port
-		zoom *= 2
-		xOffset = mousePos.x
-		yOffset = mousePos.y
+		zoom = zoom * 1.1
+		iterations = iterations + .2
+		xOffset = xOffset - (mousePos.x - width/2)
+		yOffset = yOffset - (mousePos.y - height/2)
 
+		// Render
 		requestAnimationFrame(brot)
 
 	}, false);
@@ -74,7 +57,7 @@ onload = function() {
 	var zoom = 100
 
 	// Search depth
-	const iterations = 10
+	var iterations = 10
 
 	// Draw the 'brot
 	function brot() {
@@ -160,8 +143,8 @@ onload = function() {
 						
 							// Convert path to view port units
 							var point = path[p]
-							point.r += 2
-							point.i += (height/2) / zoom
+							point.r += xOffset / zoom
+							point.i += yOffset / zoom
 							point.r *= zoom
 							point.i *= zoom
 
@@ -196,19 +179,6 @@ onload = function() {
 
 	}
 
-	// var count = 0
-	// function render() {
-
-		// if (count < 1) {
-
+	// Render first frame
 	requestAnimationFrame(brot)
-
-			// brot()
-			// zoom *= 1.05
-			// ++count
-		// }
-	// }
-
-	// Start animation
-	// render()
 }
