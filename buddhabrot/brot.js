@@ -13,19 +13,19 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	// console.log = function() {}
-	// const width = 400 // window.innerWidth
-	// const height = 800 // window.innerHeight
 	const width = window.innerWidth
 	const height = window.innerHeight
+	canvas.width = width
+	canvas.height = height
 
+	// Toggle between 'brots
 	const mandy = false
 
 	// View port
-	var zoom = 150
-	const iterations = 15
-	canvas.width = width
-	canvas.height = height
+	var zoom = 250
+
+	// Search depth
+	const iterations = 10
 
 	// Create bitmap
 	var bitmap = new Array(width)
@@ -112,6 +112,7 @@ onload = function() {
 							// Convert path to view port units
 							var point = path[p]
 							point.r += 2
+							point.i += (height/2) / zoom
 							point.r *= zoom
 							point.i *= zoom
 
@@ -139,7 +140,7 @@ onload = function() {
 		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y) {
 
-				const s = Math.floor((bitmap[x][y] * 256)/3) 
+				const s = Math.floor((bitmap[x][y] * 256)/maxIntensity) 
 				context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
 				context.fillRect(x, y, 1, 1)
 			}
