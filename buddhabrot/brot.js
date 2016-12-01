@@ -19,8 +19,10 @@ onload = function() {
 	const width = window.innerWidth
 	const height = window.innerHeight
 
+	const mandy = false
+
 	// View port
-	var zoom = 1550
+	var zoom = 150
 	const iterations = 15
 	canvas.width = width
 	canvas.height = height
@@ -62,13 +64,14 @@ onload = function() {
 
 			for (var i = 0; i < iterations; ++i) {
 
-				// Begin path
+				// Add point to path
 				var p = new complex()
 				p.r = zr
 				p.i = zi
 				path[path.length] = p
 
 				// Don't look any further if we've escaped the set
+				// Return path so far
 				if ((zr * zr + zi * zi) > 4)
 					return path
 
@@ -94,66 +97,52 @@ onload = function() {
 					(y - height/2) / zoom,
 					iterations)
 
-				// if (path.length)
-					// bitmap[x][y] = path.length
+				if (mandy) {
 
-				if (path.length > 0)
-					for (var p = 0; p < path.length; ++p) {
+					// Mandelbrot
+					if (path.length)
+						bitmap[x][y] = path.length
+				}
+				else {
+
+					// Buddhabrot
+					if (path.length)
+						for (var p = 0; p < path.length; ++p) {
 						
-						var point = path[p]
-						point.r += 2
-						point.r *= zoom
-						point.i *= zoom
+							// Convert path to view port units
+							var point = path[p]
+							point.r += 2
+							point.r *= zoom
+							point.i *= zoom
 
-						point.r = Math.round(point.r)
-						point.i = Math.round(point.i)
+							point.r = Math.round(point.r)
+							point.i = Math.round(point.i)
 
-						// point.print()
-
-						if (point.r < width && point.i < height
-							&& point.r >=0 && point.i >= 0)
-							++bitmap[point.r][point.i]
-					}
+							// Increment the bitmap fr 
+							if (point.r < width && point.i < height
+								&& point.r >=0 && point.i >= 0)
+								++bitmap[point.r][point.i]
+						}
+				}
 			}
 
 		// Calculate max intensity
 		var maxIntensity = 0
 		for (var x = 0; x < width; ++x)
-			for (var y = 0; y < height; ++y) {
-
-				// console.log("find max", x, y, bitmap[x][y], maxIntensity)
-
-				if (bitmap[x][y] > maxIntensity) {
-
+			for (var y = 0; y < height; ++y)
+				if (bitmap[x][y] > maxIntensity)
 					maxIntensity = bitmap[x][y]
-					// console.log("bigger", maxIntensity)
-				}
-			}
 
 		console.log("max intensity", maxIntensity)
 
 		// Display 'brot
-		for (var x = 0; x < width; ++x) {
-
-			// console.log(bitmap[x])
-
+		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y) {
 
-				// if(bitmap[x][y] > 0) {
-				if (1) {
-
-					const s = Math.floor((bitmap[x][y]) * 256/maxIntensity) 
-
-					context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
-					context.fillRect(x, y, 1, 1)
-				}
-				// else {
-
-				// 	context.fillStyle = "black"
-				// 	context.fillRect(x, y, 1, 1)
-				// }
+				const s = Math.floor((bitmap[x][y] * 256)/3) 
+				context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
+				context.fillRect(x, y, 1, 1)
 			}
-		}
 	}
 
 	var count = 0
