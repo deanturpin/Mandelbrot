@@ -18,28 +18,77 @@ onload = function() {
 	canvas.width = width
 	canvas.height = height
 
+	context.font = "10pt arial"
+	context.fillStyle = "white"
+
+	// Start position in the view port
+	var xOffset = width/2
+	var yOffset = height/2
+
+	function getMousePos(canvas, evt) {
+
+		var rect = canvas.getBoundingClientRect()
+
+		return {
+		x: evt.clientX - rect.left,
+		y: evt.clientY - rect.top
+		}
+	}
+
+	canvas.addEventListener("mousemove", function(evt) {
+
+		const p = {
+			x: 10,
+			y: 10,
+			width: 100,
+			height: 40
+		}
+
+		var mousePos = getMousePos(canvas, evt);
+
+		context.fillStyle = "white"
+		context.clearRect(p.x, p.y, p.width, p.height)
+
+		context.fillStyle = "black"
+		context.fillText(mousePos.x + ", " + mousePos.y, p.x + 20, p.y + 20)
+	}, false);
+
+	canvas.addEventListener("dblclick", function(evt) {
+
+		var mousePos = getMousePos(canvas, evt);
+		console.log("click", mousePos.x, mousePos.y)
+
+		// Update view port
+		zoom *= 2
+		xOffset = mousePos.x
+		yOffset = mousePos.y
+
+		requestAnimationFrame(brot)
+
+	}, false);
+
 	// Toggle between 'brots
 	const mandy = false
 
 	// View port
-	var zoom = 250
+	var zoom = 100
 
 	// Search depth
 	const iterations = 10
 
-	// Create bitmap
-	var bitmap = new Array(width)
-
-	for (var x = 0; x < width; ++x)
-		bitmap[x] = new Array(height)
-
-	// Initialise bitmap
-	for (var x = 0; x < width; ++x)
-		for (var y = 0; y < height; ++y)
-			bitmap[x][y] = 0
-
 	// Draw the 'brot
 	function brot() {
+
+		// Create bitmap
+		var bitmap = new Array(width)
+
+		for (var x = 0; x < width; ++x)
+			bitmap[x] = new Array(height)
+
+		// Initialise bitmap
+		for (var x = 0; x < width; ++x)
+			for (var y = 0; y < height; ++y)
+				bitmap[x][y] = 0
 
 		// Clear the canvas
 		context.clearRect(0, 0, canvas.width, canvas.height)
@@ -93,8 +142,8 @@ onload = function() {
 			for (var y = 0; y < height; ++y) {
 
 				const path = calculateExitPath(
-					x/zoom - 2,
-					(y - height/2) / zoom,
+					(x - xOffset) / zoom,
+					(y - yOffset) / zoom,
 					iterations)
 
 				if (mandy) {
@@ -144,21 +193,22 @@ onload = function() {
 				context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
 				context.fillRect(x, y, 1, 1)
 			}
+
 	}
 
-	var count = 0
-	function render() {
+	// var count = 0
+	// function render() {
 
-		if (count < 1) {
+		// if (count < 1) {
 
-			requestAnimationFrame(render)
+	requestAnimationFrame(brot)
 
-			brot()
-			zoom *= 1.05
-			++count
-		}
-	}
+			// brot()
+			// zoom *= 1.05
+			// ++count
+		// }
+	// }
 
 	// Start animation
-	render()
+	// render()
 }
