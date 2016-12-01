@@ -13,15 +13,15 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = 24 // window.innerWidth
-	const height = 24 // window.innerHeight
+	// console.log = function() {}
+	const width = 400 // window.innerWidth
+	const height = 500 // window.innerHeight
 
+	// View port
 	var zoom = 150
-	const iterations = 3
+	const iterations = 15
 	canvas.width = width
 	canvas.height = height
-
-	// console.log = function() {}
 
 	// Create bitmap
 	var bitmap = new Array(width)
@@ -48,18 +48,6 @@ onload = function() {
 			// Real and imaginary
 			this.r
 			this.i
-
-			// Debug
-			this.print = function() { console.log(this.r, this.i) }
-
-			this.multiply = function(m) {
-
-				var p = new complex()
-				p.r *= m
-				p.i *= m
-
-				return p
-			}
 		}
 
 		// Test if point is a member of the set
@@ -70,14 +58,13 @@ onload = function() {
 			var cr = zr
 			var ci = zi
 
-			// Begin path
-			var p = new complex()
-			p.r = zr
-			p.i = zi
-
-			path[path.length] = p
-
 			for (var i = 0; i < iterations; ++i) {
+
+				// Begin path
+				var p = new complex()
+				p.r = zr
+				p.i = zi
+				path[path.length] = p
 
 				// Don't look any further if we've escaped the set
 				if ((zr * zr + zi * zi) > 4)
@@ -105,14 +92,17 @@ onload = function() {
 					(y - height/2) / zoom,
 					iterations)
 
-				// console.log(path.length)
+				if (path.length)
+					bitmap[x][y] = path.length
 
+				/*
 				if (path.length > 0)
 					for (var p = 0; p < path.length; ++p) {
 						
 						var point = path[p]
-						point.multiply(zoom)
 						point.r += 2
+						point.r *= zoom
+						point.i *= zoom
 
 						point.r = Math.round(point.r)
 						point.i = Math.round(point.i)
@@ -120,14 +110,11 @@ onload = function() {
 						// point.print()
 
 						if (point.r < width && point.i < height
-							&& point.r >=0 && point.i >= 0) {
-
+							&& point.r >=0 && point.i >= 0)
+							bitmap[x][y] = path.length
 							++bitmap[point.r][point.i]
-							// console.log("add", point.r, point.i, bitmap[point.r][point.i])
-						}
-						// else
-							// console.log("off screen", point.r, point.i)
 					}
+				*/
 			}
 
 		// Calculate max intensity
@@ -149,25 +136,23 @@ onload = function() {
 		// Display 'brot
 		for (var x = 0; x < width; ++x) {
 
-			console.log(bitmap[x])
+			// console.log(bitmap[x])
 
 			for (var y = 0; y < height; ++y) {
 
-				// console.log("display", x, y, bitmap[x][y])
-
-				if(bitmap[x][y] > 0) {
+				// if(bitmap[x][y] > 0) {
+				if (1) {
 
 					const s = Math.floor((bitmap[x][y]) * 256/maxIntensity) 
 
 					context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
-					// context.fillStyle = "white"
 					context.fillRect(x, y, 1, 1)
 				}
-				else {
+				// else {
 
-					context.fillStyle = "red"
-					context.fillRect(x, y, 1, 1)
-				}
+				// 	context.fillStyle = "black"
+				// 	context.fillRect(x, y, 1, 1)
+				// }
 			}
 		}
 	}
