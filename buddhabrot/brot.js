@@ -14,11 +14,13 @@ onload = function() {
 
 	// Set canvas size
 	// console.log = function() {}
-	const width = 400 // window.innerWidth
-	const height = 500 // window.innerHeight
+	// const width = 400 // window.innerWidth
+	// const height = 800 // window.innerHeight
+	const width = window.innerWidth
+	const height = window.innerHeight
 
 	// View port
-	var zoom = 150
+	var zoom = 1550
 	const iterations = 15
 	canvas.width = width
 	canvas.height = height
@@ -92,10 +94,9 @@ onload = function() {
 					(y - height/2) / zoom,
 					iterations)
 
-				if (path.length)
-					bitmap[x][y] = path.length
+				// if (path.length)
+					// bitmap[x][y] = path.length
 
-				/*
 				if (path.length > 0)
 					for (var p = 0; p < path.length; ++p) {
 						
@@ -111,10 +112,8 @@ onload = function() {
 
 						if (point.r < width && point.i < height
 							&& point.r >=0 && point.i >= 0)
-							bitmap[x][y] = path.length
 							++bitmap[point.r][point.i]
 					}
-				*/
 			}
 
 		// Calculate max intensity
