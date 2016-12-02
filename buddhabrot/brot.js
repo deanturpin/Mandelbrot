@@ -127,12 +127,14 @@ onload = function() {
 				if (mandy) {
 
 					// Mandelbrot
+					// Populate the bitmap with the length of escape path
 					if (path.length)
 						bitmap[x][y] = path.length
 				}
 				else {
 
 					// Buddhabrot
+					// Increment each pixel as the escape path crosses it
 					if (path.length)
 						for (var p = 0; p < path.length; ++p) {
 						
