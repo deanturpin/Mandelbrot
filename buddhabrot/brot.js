@@ -19,7 +19,7 @@ onload = function() {
 	canvas.height = height
 
 	// View port
-	var zoom = 100
+	var zoom = 600
 
 	// Search depth
 	var iterations = 20
@@ -55,7 +55,7 @@ onload = function() {
 	}, false);
 
 	// Toggle between 'brots
-	const mandy = true
+	const mandy = false
 
 	// Draw the 'brot
 	function brot() {
