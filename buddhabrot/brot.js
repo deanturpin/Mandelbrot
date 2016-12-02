@@ -19,10 +19,10 @@ onload = function() {
 	canvas.height = height
 
 	// View port
-	var zoom = 600
+	var zoom = height/4
 
 	// Search depth
-	var iterations = 20
+	var iterations = 15
 
 	// Start position in the view port
 	var xOffset = width/2
