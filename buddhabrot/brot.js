@@ -13,13 +13,16 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = 400 // window.innerWidth
-	const height = 400 // window.innerHeight
+	const width = window.innerWidth
+	const height = window.innerHeight
 	canvas.width = width
 	canvas.height = height
 
-	context.font = "10pt arial"
-	context.fillStyle = "white"
+	// View port
+	var zoom = 100
+
+	// Search depth
+	var iterations = 20
 
 	// Start position in the view port
 	var xOffset = width/2
@@ -40,10 +43,11 @@ onload = function() {
 		var mousePos = getMousePos(canvas, evt);
 
 		// Update view port
-		zoom = zoom * 1.1
+		zoom = zoom * 1.3
 		iterations = iterations + .2
-		xOffset = xOffset - (mousePos.x - width/2)
-		yOffset = yOffset - (mousePos.y - height/2)
+
+		xOffset = xOffset + width/2 - mousePos.x
+		yOffset = yOffset + height/2 - mousePos.y
 
 		// Render
 		requestAnimationFrame(brot)
@@ -51,13 +55,7 @@ onload = function() {
 	}, false);
 
 	// Toggle between 'brots
-	const mandy = false
-
-	// View port
-	var zoom = 100
-
-	// Search depth
-	var iterations = 10
+	const mandy = true
 
 	// Draw the 'brot
 	function brot() {
@@ -166,8 +164,6 @@ onload = function() {
 				if (bitmap[x][y] > maxIntensity)
 					maxIntensity = bitmap[x][y]
 
-		console.log("max intensity", maxIntensity)
-
 		// Display 'brot
 		for (var x = 0; x < width; ++x)
 			for (var y = 0; y < height; ++y) {
@@ -176,7 +172,6 @@ onload = function() {
 				context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
 				context.fillRect(x, y, 1, 1)
 			}
-
 	}
 
 	// Render first frame
