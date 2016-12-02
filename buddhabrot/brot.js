@@ -51,7 +51,6 @@ onload = function() {
 
 		// Render
 		requestAnimationFrame(brot)
-
 	}, false);
 
 	// Toggle between 'brots
@@ -73,8 +72,6 @@ onload = function() {
 
 		// Clear the canvas
 		context.clearRect(0, 0, canvas.width, canvas.height)
-
-		var maxIterations = 0
 
 		// Complex number class
 		function complex() {
@@ -149,7 +146,7 @@ onload = function() {
 							point.r = Math.round(point.r)
 							point.i = Math.round(point.i)
 
-							// Increment the bitmap fr 
+							// Increment the bitmap for each point in the path
 							if (point.r < width && point.i < height
 								&& point.r >=0 && point.i >= 0)
 								++bitmap[point.r][point.i]
