@@ -6,7 +6,7 @@ See [large version](buddhabrot.png).
 
 ### Mandelbrot
 A traditional Mandelbrot can be displayed by setting the follow variable in
-```mandelbrot.js```.
+mandelbrot.js.
 
 ```
 const mandy = true
