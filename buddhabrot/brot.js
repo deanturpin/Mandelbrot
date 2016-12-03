@@ -22,7 +22,7 @@ onload = function() {
 	var zoom = height/4
 
 	// Search depth
-	var iterations = 15
+	var iterations = 10
 
 	// Start position in the view port
 	var xOffset = width/2
@@ -44,7 +44,7 @@ onload = function() {
 
 		// Update view port
 		zoom = zoom * 1.3
-		iterations = iterations + .2
+		iterations = iterations + 1
 
 		xOffset = xOffset + width/2 - mousePos.x
 		yOffset = yOffset + height/2 - mousePos.y
@@ -163,14 +163,26 @@ onload = function() {
 				if (bitmap[x][y] > maxIntensity)
 					maxIntensity = bitmap[x][y]
 
+		// Create a pixels for each intensity
+		var pixels = []
+		for (var p = 0; p <= maxIntensity; ++p) {
+
+			// Create pixel
+			pixels[pixels.length] = context.createImageData(1, 1)
+
+			const s = ((p + 1) * 255)/maxIntensity
+
+			// Set colour
+			pixels[pixels.length - 1].data[0] = s
+			pixels[pixels.length - 1].data[1] = s
+			pixels[pixels.length - 1].data[2] = s
+			pixels[pixels.length - 1].data[3] = 255
+		}
+
 		// Display 'brot
 		for (var x = 0; x < width; ++x)
-			for (var y = 0; y < height; ++y) {
-
-				const s = Math.floor((bitmap[x][y] * 256)/maxIntensity) 
-				context.fillStyle = "rgb(" + s + ", " + s + ", " + s + ")"
-				context.fillRect(x, y, 1, 1)
-			}
+			for (var y = 0; y < height; ++y)
+				context.putImageData(pixels[bitmap[x][y]], x, y)   
 	}
 
 	// Render first frame
