@@ -1,4 +1,4 @@
-See Mathologer on YouTube for Mandelbrot info.
+See Mathologer on ![YouTube](https://www.youtube.com/watch?v=9gk_8mQuerg) for Mandelbrot info.
 
 ![](buddhabrot_small.png)
 
