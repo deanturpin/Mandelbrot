@@ -22,7 +22,7 @@ onload = function() {
 	var zoom = height/4
 
 	// Search depth
-	var iterations = 10
+	var iterations = 15
 
 	// Start position in the view port
 	var xOffset = width/2
@@ -54,7 +54,7 @@ onload = function() {
 	}, false);
 
 	// Toggle between 'brots
-	const mandy = false
+	const mandy = true
 
 	// Draw the 'brot
 	function brot() {
