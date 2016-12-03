@@ -24,6 +24,11 @@ onload = function() {
 	// Search depth
 	var iterations = 15
 
+	// Toggle 'brots
+	// Buddhabrot = false
+	// Mandelbrot = true
+	const mandy = false
+
 	// Start position in the view port
 	var xOffset = width/2
 	var yOffset = height/2
@@ -52,9 +57,6 @@ onload = function() {
 		// Render
 		requestAnimationFrame(brot)
 	}, false);
-
-	// Toggle between 'brots
-	const mandy = true
 
 	// Draw the 'brot
 	function brot() {
