@@ -1,2 +1,0 @@
-## Mandelbrot
-![](mandelbrot.png)
