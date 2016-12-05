@@ -13,8 +13,8 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = (window.innerWidth < 800 ? window.innerWidth : 800)
-	const height = (window.innerHeight < 400 ? window.innerHeight : 400)
+	const width = window.innerWidth
+	const height = window.innerHeight
 	canvas.width = width
 	canvas.height = height
 
@@ -25,9 +25,9 @@ onload = function() {
 	var iterations = 15
 
 	// Toggle 'brots
-	// Buddhabrot = false
-	// Mandelbrot = true
-	const mandy = false
+	// Set false for Buddhabrot
+	// Set true for Mandelbrot
+	const mandy = true
 
 	// Start position in the view port
 	var xOffset = width/2
@@ -105,8 +105,8 @@ onload = function() {
 					return path
 
 				// Calculate next point
-				const zr2 = (zr * zr) + (zi * zi * -1) + cr
-				const zi2 = (zi * zr) + (zr * zi) + ci
+				const zr2 = (zr * zr) + (zi * zi * -1) + cr * Math.random()
+				const zi2 = (zi * zr) + (zr * zi) + ci * Math.random()
 
 				// Copy the latest
 				zr = zr2
@@ -122,8 +122,8 @@ onload = function() {
 			for (var y = 0; y < height; ++y) {
 
 				const path = calculateExitPath(
+					-(y - yOffset/2) / zoom,
 					(x - xOffset) / zoom,
-					(y - yOffset) / zoom,
 					iterations)
 
 				if (mandy) {
