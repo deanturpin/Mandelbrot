@@ -13,8 +13,8 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = (window.innerWidth < 800 ? window.innerWidth : 800)
-	const height = (window.innerHeight < 400 ? window.innerHeight : 400)
+	const width = window.innerWidth
+	const height = window.innerHeight
 	canvas.width = width
 	canvas.height = height
 
@@ -117,10 +117,39 @@ onload = function() {
 			return []
 		}
 
+		// Progress box dimensions
+		const totalCalculations = width * height
+		const box = {
+			x: 20,
+			y: 50,
+			width: 100,
+			height: 40,
+			offset: 20
+		}
+
+		context.clearRect(box.x, box.y, box.width, box.height)
+
 		// Test if each element in the bitmap is a member of the set
-		for (var x = 0; x < width; ++x)
+		for (var x = 0; x < width; ++x) {
+
+			// Report progress
+			if (!(x % 50)) {
+
+				// Draw some text
+				context.clearRect(box.x, box.y, box.width, box.height)
+				context.fillStyle = "black"
+				context.fillRect(box.x, box.y, box.width, box.height)
+				context.fontStyle = "50px"
+				context.fillStyle = "white"
+
+				// Calculate percent complete and display it
+				const percentComplete = 100 * height * x / totalCalculations
+				context.fillText(percentComplete.toPrecision(2) + "%", box.x + box.offset, box.y + box.offset)
+			}
+
 			for (var y = 0; y < height; ++y) {
 
+				// Calculate exit path for each point in the window
 				const path = calculateExitPath(
 					(x - xOffset) / zoom,
 					(y - yOffset) / zoom,
@@ -157,6 +186,7 @@ onload = function() {
 						}
 				}
 			}
+		}
 
 		// Calculate max intensity
 		var maxIntensity = 0
@@ -172,7 +202,8 @@ onload = function() {
 			// Create pixel
 			pixels[pixels.length] = context.createImageData(1, 1)
 
-			const s = ((p + 1) * 255)/maxIntensity
+			// Calculate shade of grey depending on max intensity
+			const s = ((p + 1) * 255) / maxIntensity
 
 			// Set colour
 			pixels[pixels.length - 1].data[0] = s
