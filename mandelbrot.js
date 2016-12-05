@@ -175,7 +175,7 @@ onload = function() {
 			const s = ((p + 1) * 255)/maxIntensity
 
 			// Set colour
-			pixels[pixels.length - 1].data[0] = s
+			pixels[pixels.length - 1].data[0] = 128
 			pixels[pixels.length - 1].data[1] = s
 			pixels[pixels.length - 1].data[2] = s
 			pixels[pixels.length - 1].data[3] = 255
