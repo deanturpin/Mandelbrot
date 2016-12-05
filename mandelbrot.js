@@ -13,8 +13,8 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = window.innerWidth
-	const height = window.innerHeight
+	const width = (window.innerWidth < 800 ? window.innerWidth : 800)
+	const height = (window.innerHeight < 400 ? window.innerHeight : 400)
 	canvas.width = width
 	canvas.height = height
 
