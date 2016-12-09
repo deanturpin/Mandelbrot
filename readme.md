@@ -1,5 +1,7 @@
 Inspired by a Mathologer video on [YouTube](https://www.youtube.com/watch?v=9gk_8mQuerg). See [large image](images/buddhabrot.png) and [zooming version](https://rawgit.com/deanturpin/Mandy/master/index.html).
 
+Click to recentre and zoom.
+
 ![](images/buddhabrot_small.png)
 
 ### Mandelbrot
