@@ -13,10 +13,8 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = window.innerWidth
-	const height = window.innerHeight
-	canvas.width = width
-	canvas.height = height
+	const width = canvas.width = window.innerWidth
+	const height = canvas.height = window.innerHeight
 
 	// View port
 	var zoom = height/4
