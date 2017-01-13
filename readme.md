@@ -1,3 +1,7 @@
+Project parked. Outstanding issues tagged as wontfix and closed.
+
+----
+
 Inspired by a Mathologer video on
 [YouTube](https://www.youtube.com/watch?v=9gk_8mQuerg). See [large
 image](images/buddhabrot.png) and [zooming version](mandy.html).
