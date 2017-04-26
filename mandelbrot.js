@@ -13,14 +13,14 @@ onload = function() {
 	var context = canvas.getContext("2d")
 
 	// Set canvas size
-	const width = canvas.width = window.innerWidth
-	const height = canvas.height = window.innerHeight
+	const width = canvas.width = 600 // window.innerWidth
+	const height = canvas.height = 400 // window.innerHeight
 
 	// View port
-	var zoom = height/4
+	var zoom = height/2
 
 	// Search depth
-	var iterations = 15
+	var iterations = 8
 
 	// Toggle 'brots
 	// Buddhabrot = false
